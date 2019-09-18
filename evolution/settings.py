@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from decouple import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -78,8 +79,12 @@ WSGI_APPLICATION = 'evolution.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': config('DB_NAME', 'd6844695ti7uq0'),
+        'USER': config('DB_USER', 'kaogiuhhguajit'),
+        'PASSWORD': config('DB_PASS', 'dddfa9e3db7721e18f8b3880a2cf322355d95761de927968ea2fcb0ce08cbe2d'),
+        'HOST': config('DB_HOST', 'ec2-174-129-43-40.compute-1.amazonaws.com'),
+        'PORT': config('DB_PORT', '5432')
     }
 }
 
