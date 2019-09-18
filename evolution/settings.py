@@ -25,7 +25,7 @@ SECRET_KEY = 'u@=hgiu*pxc&#cgp8jf68i8=)i6oo5a=%k#&fk&q1#_!hh8r(+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['stormy-river-20369.herokuapp.com']
 
 
 # Application definition
