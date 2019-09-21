@@ -6,7 +6,11 @@ from api.models import Menu
 class MenuCreateView(generics.CreateAPIView):
   serializer_class = MenuCreateSerializer
 
-class MenuView(generics.RetrieveUpdateDestroyAPIView):
+class MenuUpdateView(generics.UpdateAPIView):
+  serializer_class = MenuCreateSerializer
+  queryset = Menu.objects.all()
+
+class MenuView(generics.RetrieveDestroyAPIView):
   serializer_class = MenuSerializer
   queryset = Menu.objects.all()
 

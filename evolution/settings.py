@@ -27,6 +27,7 @@ SECRET_KEY = 'u@=hgiu*pxc&#cgp8jf68i8=)i6oo5a=%k#&fk&q1#_!hh8r(+'
 DEBUG = True
 
 ALLOWED_HOSTS = ['stormy-river-20369.herokuapp.com', 'localhost']
+CORS_ORIGIN_ALLOW_ALL = True
 
 
 # Application definition
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'rest_framework',
     'api'
 ]
@@ -51,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
 
 ROOT_URLCONF = 'evolution.urls'

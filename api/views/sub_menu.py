@@ -6,7 +6,11 @@ from api.models import SubMenu
 class SubMenuCreateView(generics.CreateAPIView):
   serializer_class = SubMenuCreateSerializer
 
-class SubMenuView(generics.RetrieveUpdateDestroyAPIView):
+class SubMenuUpdateView(generics.UpdateAPIView):
+  serializer_class = SubMenuCreateSerializer
+  queryset = SubMenu.objects.all()
+
+class SubMenuView(generics.RetrieveDestroyAPIView):
   serializer_class = SubMenuSerializer
   queryset = SubMenu.objects.all()
 

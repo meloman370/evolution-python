@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
-from api.views.menu import MenuCreateView, MenuView, MenuListView
-from api.views.sub_menu import SubMenuCreateView, SubMenuView, SubMenuListView
+from api.views.menu import MenuCreateView, MenuView, MenuListView, MenuUpdateView
+from api.views.sub_menu import SubMenuCreateView, SubMenuView, SubMenuListView, SubMenuUpdateView
 from api.views.category import CategoryCreateView, CategoryView, CategoryListView
 from api.views.product import ProductCreateView, ProductView, ProductListView
 from api.views.image import ImageCreateView, ImageView, ImageListView
@@ -11,13 +11,16 @@ from api.views.slider_block import SliderBlockCreateView, SliderBlockListView, S
 from api.views.slider_block import SliderProductListView, SliderProductView, SliderProductCreateView
 from api.views.block import BlockCreateView, BlockListView, BlockView
 from api.views.banner_block import BannerBlockCreateView, BannerBlockListView, BannerBlockView
+from api.views.product_category import ProductCategoryCreateView
 
 urlpatterns = [
     path('menu/create/', MenuCreateView.as_view()),
+    path('menu/<int:pk>/update', MenuUpdateView.as_view()),
     path('menu/<int:pk>', MenuView.as_view()),
     path('menu/', MenuListView.as_view()),
 
     path('sub-menu/create', SubMenuCreateView.as_view()),
+    path('sub-menu/<int:pk>/update', SubMenuUpdateView.as_view()),
     path('sub-menu/<int:pk>', SubMenuView.as_view()),
     path('sub-menu/', SubMenuListView.as_view()),
 
@@ -28,6 +31,7 @@ urlpatterns = [
     path('product/create', ProductCreateView.as_view()),
     path('product/<int:pk>', ProductView.as_view()),
     path('products/', ProductListView.as_view()),
+    path('product/category/add', ProductCategoryCreateView.as_view()),
 
     path('product/image/create', ImageCreateView.as_view()),
     path('product/image/<int:pk>', ImageView.as_view()),

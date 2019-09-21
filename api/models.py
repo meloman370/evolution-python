@@ -1,6 +1,7 @@
 from django.db import models
 from os import path
 from .helper import getWebpImage, getThumbImage
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 class Menu(models.Model):
   name = models.CharField(verbose_name="Название", unique=True, max_length=64)
@@ -41,10 +42,14 @@ class Product(models.Model):
   meta_description = models.TextField(verbose_name="meta description", max_length=255)
   price = models.DecimalField(verbose_name="Цена", decimal_places=2, max_digits=7)
   discount = models.DecimalField(verbose_name="Скидка", decimal_places=2, max_digits=7)
-  category = models.ForeignKey(Category, related_name="products", on_delete=models.CASCADE)
+  category = models.ManyToManyField(Category, related_name="products", through='ProductCategory')
 
   def __str__(self):
     return self.title
+
+class ProductCategory(models.Model):
+  category = models.ForeignKey(Category, on_delete=models.CASCADE)
+  product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
 class Image(models.Model):
   alt = models.CharField(verbose_name="Alt", max_length=32)
@@ -53,6 +58,7 @@ class Image(models.Model):
   compressed_inner = models.ImageField(verbose_name="Сжатое изображение", upload_to="./catalog/inner", blank=True)
   compressed_thumb = models.ImageField(verbose_name="Сжатое изображение тизер", upload_to="./catalog/thumb", blank=True)
   product = models.ForeignKey(Product, related_name="images", on_delete=models.CASCADE)
+  color = models.ForeignKey('Option', on_delete=models.DO_NOTHING, blank=True, null=True)
 
   def save(self, *args, **kwards):
     if self.origin_inner:
@@ -108,17 +114,27 @@ class SliderProduct(models.Model):
   product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
 class BannerBlock(models.Model):
-  type = models.CharField(verbose_name="Тип", max_length=20, default="banner")
-  link = models.CharField(verbose_name="Ссылка", max_length=255)
-  button_text = models.CharField(verbose_name="Текст кнопки", max_length=255)
-  BUTTON_ALIGN = (
+  ALIGN_HORISONTAL = (
     (1, 'left'),
     (2, 'center'),
     (3, 'right')
   )
-  align_button = models.IntegerField(verbose_name="Выравнивание кнопки", choices=BUTTON_ALIGN)
+  ALIGN_VERTICAL = (
+    (1, 'top'),
+    (2, 'center'),
+    (3, 'bottom')
+  )
+  type = models.CharField(verbose_name="Тип", max_length=20, default="banner")
+  link = models.CharField(verbose_name="Ссылка", max_length=255)
+  button_text = models.CharField(verbose_name="Текст кнопки", max_length=255)
+  text_size = models.IntegerField(verbose_name="Размер текста", default=20, validators=[MaxValueValidator(50), MinValueValidator(16)])
+  align_text_horisontal = models.IntegerField(verbose_name="Выравнивание текста по горизонтали", choices=ALIGN_HORISONTAL)
+  align_text_vertical = models.IntegerField(verbose_name="Выравнивание текста по вертикали", choices=ALIGN_VERTICAL)
+  align_button_horisontal = models.IntegerField(verbose_name="Выравнивание кнопки по горизонтали", choices=ALIGN_HORISONTAL)
+  align_button_vertical = models.IntegerField(verbose_name="Выравнивание кнопки по вертикали", choices=ALIGN_VERTICAL)
   image = models.ImageField(verbose_name="Изображение", upload_to="./banner")
   compressed_image = models.ImageField(verbose_name="Изображение", upload_to="./banner", blank=True)
+  is_full = models.BooleanField(verbose_name="На весь экран", default=False)
   block = models.ForeignKey(Block, on_delete=models.CASCADE, related_name="banner")
 
   def save(self, *args, **kwards):
