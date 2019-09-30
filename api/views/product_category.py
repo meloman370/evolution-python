@@ -5,3 +5,11 @@ from api.models import ProductCategory
 
 class ProductCategoryCreateView(generics.CreateAPIView):
   serializer_class = ProductCategorySerializer
+
+class ProductCategoryView(generics.RetrieveUpdateDestroyAPIView):
+  serializer_class = ProductCategorySerializer
+  queryset = ProductCategory.objects.all()
+
+class ProductCategoryListView(generics.ListAPIView):
+  serializer_class = ProductCategorySerializer
+  queryset = ProductCategory.objects.all()

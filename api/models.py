@@ -36,7 +36,7 @@ class Category(models.Model):
 
 class Product(models.Model):
   title = models.CharField(verbose_name="Название", max_length=64)
-  long_description = models.TextField(verbose_name="Описание", max_length=500)
+  long_description = models.TextField(verbose_name="Описание", max_length=1000)
   short_description = models.TextField(verbose_name="Сниппет", max_length=255)
   meta_keywords = models.TextField(verbose_name="meta keywords", max_length=255)
   meta_description = models.TextField(verbose_name="meta description", max_length=255)
@@ -127,7 +127,8 @@ class BannerBlock(models.Model):
   type = models.CharField(verbose_name="Тип", max_length=20, default="banner")
   link = models.CharField(verbose_name="Ссылка", max_length=255)
   button_text = models.CharField(verbose_name="Текст кнопки", max_length=255)
-  text_size = models.IntegerField(verbose_name="Размер текста", default=20, validators=[MaxValueValidator(50), MinValueValidator(16)])
+  text_size = models.IntegerField(verbose_name="Размер текста", default=40, validators=[MaxValueValidator(50), MinValueValidator(30)])
+  text = models.CharField(verbose_name="Текст", max_length=255)
   align_text_horisontal = models.IntegerField(verbose_name="Выравнивание текста по горизонтали", choices=ALIGN_HORISONTAL)
   align_text_vertical = models.IntegerField(verbose_name="Выравнивание текста по вертикали", choices=ALIGN_VERTICAL)
   align_button_horisontal = models.IntegerField(verbose_name="Выравнивание кнопки по горизонтали", choices=ALIGN_HORISONTAL)

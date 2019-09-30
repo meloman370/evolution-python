@@ -3,7 +3,7 @@ from django.urls import path, include
 from api.views.menu import MenuCreateView, MenuView, MenuListView, MenuUpdateView
 from api.views.sub_menu import SubMenuCreateView, SubMenuView, SubMenuListView, SubMenuUpdateView
 from api.views.category import CategoryCreateView, CategoryView, CategoryListView
-from api.views.product import ProductCreateView, ProductView, ProductListView
+from api.views.product import ProductCreateView, ProductView, ProductListView, ProductUpdateView
 from api.views.image import ImageCreateView, ImageView, ImageListView
 from api.views.option_group import OptionGroupCreateView, OptionGroupView, OptionGroupListView, CategoryOptionGroupCreateView
 from api.views.option import OptionCreateView, OptionView, OptionListView, ProductOptionsCreateView
@@ -11,7 +11,7 @@ from api.views.slider_block import SliderBlockCreateView, SliderBlockListView, S
 from api.views.slider_block import SliderProductListView, SliderProductView, SliderProductCreateView
 from api.views.block import BlockCreateView, BlockListView, BlockView
 from api.views.banner_block import BannerBlockCreateView, BannerBlockListView, BannerBlockView
-from api.views.product_category import ProductCategoryCreateView
+from api.views.product_category import ProductCategoryCreateView, ProductCategoryView, ProductCategoryListView
 
 urlpatterns = [
     path('menu/create/', MenuCreateView.as_view()),
@@ -30,8 +30,12 @@ urlpatterns = [
 
     path('product/create', ProductCreateView.as_view()),
     path('product/<int:pk>', ProductView.as_view()),
+    path('product/<int:pk>/edit', ProductUpdateView.as_view()),
     path('products/', ProductListView.as_view()),
-    path('product/category/add', ProductCategoryCreateView.as_view()),
+
+    path('product/category/create', ProductCategoryCreateView.as_view()),
+    path('product/category/<int:pk>', ProductCategoryView.as_view()),
+    path('product/categories/', ProductCategoryListView.as_view()),
 
     path('product/image/create', ImageCreateView.as_view()),
     path('product/image/<int:pk>', ImageView.as_view()),
@@ -55,9 +59,9 @@ urlpatterns = [
     path('slider-blocks/', SliderBlockListView.as_view()),
     path('slider-block/<int:pk>', SliderBlockView.as_view()),
 
-    path('slider-block/product/add', SliderProductCreateView.as_view()),
-    path('slider-block/products', SliderProductListView.as_view()),
-    path('slider-block/product/<int:pk>', SliderProductView.as_view),
+    path('slider-block/product/create', SliderProductCreateView.as_view()),
+    path('slider-block/products/', SliderProductListView.as_view()),
+    path('slider-block/product/<int:pk>', SliderProductView.as_view()),
 
     path('banner-block/create', BannerBlockCreateView.as_view()),
     path('banner-blocks', BannerBlockListView.as_view()),

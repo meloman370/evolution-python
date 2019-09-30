@@ -11,4 +11,4 @@ class BlockView(generics.RetrieveUpdateDestroyAPIView):
 
 class BlockListView(generics.ListAPIView):
   serializer_class = BlockSerializer
-  queryset = Block.objects.all()
+  queryset = Block.objects.order_by('weight')
