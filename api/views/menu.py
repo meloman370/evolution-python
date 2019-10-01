@@ -17,3 +17,4 @@ class MenuView(generics.RetrieveDestroyAPIView):
 class MenuListView(generics.ListAPIView):
   serializer_class = MenuSerializer
   queryset = Menu.objects.all()
+

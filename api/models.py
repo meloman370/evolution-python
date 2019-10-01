@@ -2,6 +2,23 @@ from django.db import models
 from os import path
 from .helper import getWebpImage, getThumbImage
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+
+class UserProfile(models.Model):
+  ROLES = (
+    (1, 'admin'),
+    (2, 'manager'),
+    (3, 'customer')
+  )
+  user = models.OneToOneField(User, on_delete=models.CASCADE)
+  role = models.IntegerField(verbose_name="Роль", choices=ROLES, default=3)
+
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+      UserProfile.objects.create(user=instance)
+
+post_save.connect(create_user_profile, sender=User)
 
 class Menu(models.Model):
   name = models.CharField(verbose_name="Название", unique=True, max_length=64)

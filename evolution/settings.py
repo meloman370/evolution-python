@@ -41,11 +41,20 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
-    'api'
+    'rest_framework.authtoken',
+    'api',
+    'djoser'
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
+
 MIDDLEWARE = [
-    # 'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -123,6 +132,8 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+AUTH_PROFILE_MODULE = 'api.UserProfile'
 
 
 # Static files (CSS, JavaScript, Images)
