@@ -87,7 +87,7 @@ class Image(models.Model):
 
 
 class OptionGroup(models.Model):
-    name =  models.CharField(verbose_name="Название", max_length=16, unique=True)
+    name = models.CharField(verbose_name="Название", max_length=16, unique=True)
     machine_name = models.CharField(verbose_name="Машинное имя", max_length=32, unique=True)
     categories = models.ManyToManyField(Category, related_name="groups", through="CategoryOptionGroup")
 

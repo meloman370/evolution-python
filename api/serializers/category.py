@@ -12,7 +12,7 @@ class CategorySerializer(serializers.ModelSerializer):
         exclude = ['sub_menu_item']
 
 class CategoryCreateSerializer(serializers.ModelSerializer):
-    class Meta: 
+    class Meta:
         model = Category
         exclude = ['compressed_image']
 
