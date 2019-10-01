@@ -3,12 +3,12 @@ from api.models import SubMenu
 from api.serializers.category import CategoryListSerializer
 
 class SubMenuSerializer(serializers.ModelSerializer):
-  category = CategoryListSerializer(many=True)
-  class Meta:
-    model = SubMenu
-    exclude = ['menu_item']
+    ategory = CategoryListSerializer(many=True)
+    class Meta:
+        model = SubMenu
+        exclude = ['menu_item']
 
 class SubMenuCreateSerializer(serializers.ModelSerializer):
-  class Meta:
-    model = SubMenu
-    fields = '__all__'
+    class Meta:
+        model = SubMenu
+        fields = '__all__'

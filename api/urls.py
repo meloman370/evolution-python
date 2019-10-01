@@ -1,5 +1,4 @@
-from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 from api.views.menu import MenuCreateView, MenuView, MenuListView, MenuUpdateView
 from api.views.sub_menu import SubMenuCreateView, SubMenuView, SubMenuListView, SubMenuUpdateView
 from api.views.category import CategoryCreateView, CategoryView, CategoryListView
