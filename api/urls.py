@@ -11,6 +11,7 @@ from api.views.slider_block import SliderProductListView, SliderProductView, Sli
 from api.views.block import BlockCreateView, BlockListView, BlockView
 from api.views.banner_block import BannerBlockCreateView, BannerBlockListView, BannerBlockView
 from api.views.product_category import ProductCategoryCreateView, ProductCategoryView, ProductCategoryListView
+from api.views.user_profile import UserProfileView
 
 urlpatterns = [
     path('menu/create/', MenuCreateView.as_view()),
@@ -47,7 +48,7 @@ urlpatterns = [
 
     path('widget/option/create', OptionCreateView.as_view()),
     path('widget/option/<int:pk>', OptionView.as_view()),
-    path('widget/options', OptionListView.as_view()),
+    path('widget/options/', OptionListView.as_view()),
     path('widget/product-option/create', ProductOptionsCreateView.as_view()),
 
     path('block/create', BlockCreateView.as_view()),
@@ -63,6 +64,8 @@ urlpatterns = [
     path('slider-block/product/<int:pk>', SliderProductView.as_view()),
 
     path('banner-block/create', BannerBlockCreateView.as_view()),
-    path('banner-blocks', BannerBlockListView.as_view()),
-    path('banner-block/<int:pk>', BannerBlockView.as_view())
+    path('banner-blocks/', BannerBlockListView.as_view()),
+    path('banner-block/<int:pk>', BannerBlockView.as_view()),
+
+    path('my-profile/', UserProfileView.as_view())
 ]

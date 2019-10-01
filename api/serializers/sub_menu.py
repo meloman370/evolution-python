@@ -3,7 +3,7 @@ from api.models import SubMenu
 from api.serializers.category import CategoryListSerializer
 
 class SubMenuSerializer(serializers.ModelSerializer):
-    ategory = CategoryListSerializer(many=True)
+    category = CategoryListSerializer(many=True)
     class Meta:
         model = SubMenu
         exclude = ['menu_item']
