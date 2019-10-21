@@ -5,7 +5,11 @@ from api.models import Category
 class CategoryCreateView(generics.CreateAPIView):
     serializer_class = CategoryCreateSerializer
 
-class CategoryView(generics.RetrieveUpdateDestroyAPIView):
+class CategoryEditView(generics.UpdateAPIView):
+    serializer_class = CategoryCreateSerializer
+    queryset = Category.objects.all()
+
+class CategoryView(generics.RetrieveDestroyAPIView):
     serializer_class = CategorySerializer
     queryset = Category.objects.all()
 

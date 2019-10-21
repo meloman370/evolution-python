@@ -1,5 +1,5 @@
 from rest_framework import generics
-from api.serializers.option_group import OptionGroupSerializer, CategoryOptionGroupSerializer
+from api.serializers.option_group import OptionGroupSerializer
 from api.serializers.option_group import OptionGroupCreateSerializer
 from api.models import OptionGroup
 
@@ -14,5 +14,9 @@ class OptionGroupListView(generics.ListAPIView):
     serializer_class = OptionGroupSerializer
     queryset = OptionGroup.objects.all()
 
-class CategoryOptionGroupCreateView(generics.CreateAPIView):
-    serializer_class = CategoryOptionGroupSerializer
+    def get_queryset(self):
+        queryset = OptionGroup.objects.all()
+        name = self.request.query_params.get('name', None)
+        if name is not None:
+            queryset = queryset.filter(machine_name=name)
+        return queryset

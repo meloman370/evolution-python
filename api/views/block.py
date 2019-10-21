@@ -5,7 +5,11 @@ from api.models import Block
 class BlockCreateView(generics.CreateAPIView):
     serializer_class = BlockCreateSerializer
 
-class BlockView(generics.RetrieveUpdateDestroyAPIView):
+class BlockUpdateView(generics.UpdateAPIView):
+    serializer_class = BlockCreateSerializer
+    queryset = Block.objects.all()
+
+class BlockView(generics.RetrieveDestroyAPIView):
     serializer_class = BlockSerializer
     queryset = Block.objects.all()
 

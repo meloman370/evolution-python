@@ -69,7 +69,7 @@ class ProductCategory(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
 class Image(models.Model):
-    alt = models.CharField(verbose_name="Alt", max_length=32)
+    alt = models.CharField(verbose_name="Alt", max_length=32, default='')
     origin_inner = models.ImageField(verbose_name="Изображение", upload_to="./catalog/inner")
     origin_thumb = models.ImageField(verbose_name="Маленькое изображение", upload_to="./catalog/thumb", blank=True)
     compressed_inner = models.ImageField(verbose_name="Сжатое изображение", upload_to="./catalog/inner", blank=True)
@@ -89,7 +89,6 @@ class Image(models.Model):
 class OptionGroup(models.Model):
     name = models.CharField(verbose_name="Название", max_length=16, unique=True)
     machine_name = models.CharField(verbose_name="Машинное имя", max_length=32, unique=True)
-    categories = models.ManyToManyField(Category, related_name="groups", through="CategoryOptionGroup")
 
     def __str__(self):
         return self.name
@@ -107,12 +106,8 @@ class ProductOptions(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     option = models.ForeignKey(Option, on_delete=models.CASCADE)
 
-class CategoryOptionGroup(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    option_group = models.ForeignKey(OptionGroup, on_delete=models.CASCADE)
-
 class Block(models.Model):
-    name = models.CharField(verbose_name="Название", max_length=32)
+    name = models.CharField(verbose_name="Название", max_length=32, unique=True)
     weight = models.IntegerField(verbose_name="Вес", default=0)
 
     def __str__(self):

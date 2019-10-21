@@ -33,7 +33,7 @@ class CategoryListSerializer(serializers.ModelSerializer):
     sub_menu_item = SubMenuSerializer()
     class Meta:
         model = Category
-        exclude = ['meta_keywords', 'meta_description']
+        fields = '__all__'
 
     def get_max_price(self, category):
         return category.products.aggregate(Max('price'))['price__max']

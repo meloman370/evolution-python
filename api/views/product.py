@@ -5,9 +5,9 @@ from api.serializers.product import ProductCreateSerializer
 from api.models import Product
 
 class ProductPagination(PageNumberPagination):
-    page_size = 2
+    page_size = 24
     page_size_query_param = 'page_size'
-    max_page_size = 2
+    max_page_size = 24
 
 class ProductCreateView(generics.CreateAPIView):
     serializer_class = ProductCreateSerializer
@@ -22,18 +22,20 @@ class ProductView(generics.RetrieveDestroyAPIView):
 
 class ProductListView(generics.ListAPIView):
     serializer_class = ProductListSerializer
-    queryset = Product.objects.all()
     pagination_class = ProductPagination
 
     def get_queryset(self):
-        queryset = Product.objects.all()
+        queryset = Product.objects.order_by().distinct()
         min_price = self.request.query_params.get('min_price', None)
         max_price = self.request.query_params.get('max_price', None)
         category = self.request.query_params.get('category', None)
+        title = self.request.query_params.get('title', None)
         if min_price is not None:
             queryset = queryset.filter(price__gte=min_price)
         if max_price is not None:
             queryset = queryset.filter(price__lte=max_price)
         if category is not None:
             queryset = queryset.filter(category=category)
+        if title is not None:
+            queryset = queryset.filter(title__contains=title)
         return queryset
