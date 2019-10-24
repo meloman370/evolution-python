@@ -2,3 +2,4 @@ images/
 static/
 __pycache__/
 .env
+.idea
